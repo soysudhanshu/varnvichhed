@@ -27,3 +27,31 @@ test('Vichhed sanyukt vayanjan श्र', () => {
     const expectedResult = ['श्', 'र्', 'अ'];
     expect(viched('श्र')).toStrictEqual(expectedResult);
 });
+
+/**
+ * द्वित्व व्यंजन
+ */
+test('Vichhed द्वित्व व्यंजन', () => {
+    const tests = [
+        {
+            vayanjan: 'च्च', // जैसे बच्चा
+            vichhed : ['च्', 'च्', 'अ']
+        },
+        {
+            vayanjan: 'म्म', // जैसे मम्मी
+            vichhed : ['म्', 'म्', 'अ']
+        },
+        {
+            vayanjan: 'त्त', // जैसे कुत्ता
+            vichhed : ['त्', 'त्', 'अ']
+        },
+        {
+            vayanjan: 'क्क', // जैसे ढक्कन 
+            vichhed : ['क्', 'क्', 'अ']
+        }   
+    ];
+
+    tests.forEach( test => {
+        expect(viched(test.vayanjan)).toStrictEqual(test.vichhed);
+    });
+});
