@@ -1,13 +1,4 @@
-const SWARO = [
-    'अ', 'आ',
-    'इ', 'ई',
-    'उ', 'ऊ',
-    'ऋ', 'ऌ',
-    'ऍ', 'ऎ',
-    'ऑ', 'ऒ',
-    'ए', 'ऐ',
-    'ओ', 'औ'
-];
+const {isSwar} = require('./swar.js');
 
 const VAYANJANO = [
     'क', 'ख', 'ग', 'घ', 'ङ',
@@ -53,14 +44,6 @@ const MATRA_SWAR_RISHTA = {
     'ॉ': 'ऑ',
     'ॊ': 'ऒ'
 };
-
-/**
- * Checks if given Varn is a Swar.
- * @param {string} char 
- */
-const isSwar = char => {
-    return SWARO.includes(char);
-}
 
 /**
  * Check if given Varn is a Viyanjan.
