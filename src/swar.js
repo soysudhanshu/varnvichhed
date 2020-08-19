@@ -1,10 +1,15 @@
 const SWARS = [
-    'अ', 'आ',
-    'इ', 'ई',
-    'उ', 'ऊ',
-    'ऋ',
-    'ए', 'ऐ',
-    'ओ', 'औ'
+    { varn: 'अ', matra: null },
+    { varn: 'आ', matra: 'ा' },
+    { varn: 'इ', matra: 'ि' },
+    { varn: 'ई', matra: 'ी' },
+    { varn: 'उ', matra: 'ु' },
+    { varn: 'ऊ', matra: 'ू' },
+    { varn: 'ऋ', matra: 'ृ' },
+    { varn: 'ए', matra: 'े' },
+    { varn: 'ऐ', matra: 'ै' },
+    { varn: 'ओ', matra: 'ो' },
+    { varn: 'औ', matra: 'ौ' }
 ];
 
 /**
@@ -12,7 +17,7 @@ const SWARS = [
  * @param {string} varn
  * @returns {boolean} True if given varn is Swar.
  */
-const isSwar = varn => SWARS.includes(varn);
+const isSwar = varn => SWARS.some(swar => swar.varn === varn);
 
 
 module.exports.SWARS = SWARS;
