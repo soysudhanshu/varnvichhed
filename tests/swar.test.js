@@ -1,5 +1,5 @@
 const { viched } = require('../src/varnviched.js');
-const { SWARS, isMatra } = require('../src/swar.js');
+const { SWARS, isMatra, matraToSwar } = require('../src/swar.js');
 
 SWARS.forEach(swar => {
     test(`Do no viched ${swar.varn}`, () => {
@@ -13,7 +13,7 @@ test('Test isMatra()', function () {
         "ू", "े", "ै", "ो",
         "ौ", "ृ"
     ];
-    
+
     matraye.forEach(matra => {
         expect(isMatra(matra)).toBeTruthy();
     });
@@ -26,5 +26,35 @@ test('Test isMatra()', function () {
 
     notMatraye.forEach(matra => {
         expect(isMatra(matra)).toBeFalsy();
+    });
+});
+
+test('Test matraToSwar()', () => {
+    const matraSwarRishta = {
+        'ा': "आ",
+        'ि': "इ",
+        'ी': "ई",
+        'ु': "उ",
+        'ू': "ऊ",
+        'े': "ए",
+        'ै': "ऐ",
+        'ो': "ओ",
+        'ौ': "औ",
+        'ृ': 'ऋ'
+    };
+
+    for (const matra in matraSwarRishta) {
+        expect(matraToSwar(matra))
+            .toBe(matraSwarRishta[matra]);
+    }
+
+    const notMatraye = [
+        0, null, '', false, true,
+        'a', 'ज्ञ', 'त्र', 'आ',
+        'अ', 'ऐ', '1'
+    ];
+
+    notMatraye.forEach(matra => {
+        expect(matraToSwar(matra)).toBeNull();
     });
 });
