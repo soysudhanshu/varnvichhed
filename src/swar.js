@@ -19,6 +19,13 @@ const SWARS = [
  */
 const isSwar = varn => SWARS.some(swar => swar.varn === varn);
 
+/**
+ * Verifies if given char is a Matra.
+ * @param {string} char
+ * @returns {boolean}
+ */
+const isMatra = char => SWARS.some(swar => (swar.matra === char && char !== null));
 
 module.exports.SWARS = SWARS;
 module.exports.isSwar = isSwar;
+module.exports.isMatra = isMatra;
