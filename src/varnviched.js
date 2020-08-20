@@ -16,7 +16,10 @@ const viched = sabdh => {
             varns.push(char);
         }
 
-        if (isVayanjan(char) && nextChar === ''){
+        if (
+            isVayanjan(char) &&
+            (isVayanjan(nextChar) || isSwar(nextChar) || nextChar === '')
+        ) {
             varns.push(addHalant(char));
             varns.push('अ');
         }
@@ -29,7 +32,7 @@ const viched = sabdh => {
         }
 
         vichhed.push(...varns);
-        ++index; 
+        ++index;
     }
 
     return vichhed;
