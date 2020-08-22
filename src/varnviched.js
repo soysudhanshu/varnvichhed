@@ -1,4 +1,4 @@
-const { isSwar } = require('./swar.js');
+const { isSwar, isMatra, matraToSwar } = require('./swar.js');
 const { isVayanjan } = require('./vayanjan.js');
 const { addHalant, isHalant } = require('./helpers.js');
 
@@ -29,6 +29,14 @@ const viched = sabdh => {
          */
         if (isVayanjan(char) && isHalant(nextChar)){
             varns.push(addHalant(char));
+        }
+
+        /**
+         * व्यंजन पर लगी मात्राओं का विच्छेद
+         */
+        if (isVayanjan(char) && isMatra(nextChar)) {
+            varns.push(addHalant(char));
+            varns.push(matraToSwar(nextChar));
         }
 
         vichhed.push(...varns);
