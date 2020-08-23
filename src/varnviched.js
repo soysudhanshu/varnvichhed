@@ -1,9 +1,11 @@
 const { isSwar, isMatra, matraToSwar } = require('./swar.js');
 const { isVayanjan } = require('./vayanjan.js');
-const { addHalant, isHalant } = require('./helpers.js');
+const { addHalant, isHalant, devanagariNormalize } = require('./helpers.js');
 
 const viched = sabdh => {
     sabdh = sabdh.trim();
+    sabdh = devanagariNormalize(sabdh);
+    
     const vichhed = [];
 
     let index = 0;
