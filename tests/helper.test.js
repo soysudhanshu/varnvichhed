@@ -25,4 +25,7 @@ test('Test devangariNormalize()', () => {
     expect(devanagariNormalize('\u091C\u0952')).toBe('\u097C');
     expect(devanagariNormalize('\u0921\u0952')).toBe('\u097E');
     expect(devanagariNormalize('\u092C\u0952')).toBe('\u097F');
+
+    expect(devanagariNormalize('इज़्ज़त')).toBe('इज़्ज़त');
+    expect(devanagariNormalize('दफ़्तर')).toBe('दफ़्तर');
 });
