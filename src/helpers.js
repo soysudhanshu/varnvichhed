@@ -41,7 +41,8 @@ const devanagariNormalize = string => {
 
     let normalized = string.normalize();
     for (const decomposedChar in normalizationChart) {
-        normalized = normalized.replace(decomposedChar, normalizationChart[decomposedChar]);
+        const regex = new RegExp(decomposedChar, 'g');
+        normalized = normalized.replace(regex, normalizationChart[decomposedChar]);
     }
     return normalized;
 }
