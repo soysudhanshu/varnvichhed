@@ -6,6 +6,14 @@ const isHalant = char => {
     return char === '्';
 }
 
+const isAnunasik = char => {
+    return char === 'ँ';
+}
+
+const addAnunasik = char => {
+    return char + 'ँ';
+}
+
 /**
  * Normalizes a devanagari string.
  * 
@@ -50,3 +58,5 @@ const devanagariNormalize = string => {
 module.exports.addHalant = addHalant;
 module.exports.isHalant = isHalant;
 module.exports.devanagariNormalize = devanagariNormalize;
+module.exports.isAnunasik = isAnunasik;
+module.exports.addAnunasik = addAnunasik;
