@@ -1,6 +1,6 @@
 const { isSwar, isMatra, matraToSwar } = require('./swar.js');
 const { isVayanjan } = require('./vayanjan.js');
-const { addHalant, isHalant, devanagariNormalize } = require('./helpers.js');
+const { addHalant, isHalant, devanagariNormalize, isAnunasik, addAnunasik } = require('./helpers.js');
 
 const viched = sabdh => {
     sabdh = sabdh.trim();
@@ -13,6 +13,7 @@ const viched = sabdh => {
         const varns = [];
 
         const nextChar = sabdh[index + 1] ?? '';
+        const previousChar = sabdh[index - 1] ?? '';
 
         if (isSwar(char)) {
             varns.push(char);
@@ -20,7 +21,10 @@ const viched = sabdh => {
 
         if (
             isVayanjan(char) &&
-            (isVayanjan(nextChar) || isSwar(nextChar) || nextChar === '')
+            (
+                isVayanjan(nextChar) || isSwar(nextChar) || 
+                isAnunasik(nextChar) || nextChar === ''
+            )
         ) {
             varns.push(addHalant(char));
             varns.push('अ');
@@ -39,6 +43,13 @@ const viched = sabdh => {
         if (isVayanjan(char) && isMatra(nextChar)) {
             varns.push(addHalant(char));
             varns.push(matraToSwar(nextChar));
+        }
+
+        if(isAnunasik(char)){
+            const lastVichhedVarn = vichhed[vichhed.length - 1];
+            if(isSwar(lastVichhedVarn)){
+                vichhed.push(addAnunasik(vichhed.pop()));
+            }
         }
 
         vichhed.push(...varns);
