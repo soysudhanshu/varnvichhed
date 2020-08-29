@@ -1,5 +1,5 @@
 const { viched } = require('../src/varnviched.js');
-const { SWARS, isMatra, matraToSwar } = require('../src/swar.js');
+const { SWARS, isMatra, matraToSwar, isSwar } = require('../src/swar.js');
 
 SWARS.forEach(swar => {
     test(`Do no viched ${swar.varn}`, () => {
@@ -58,3 +58,14 @@ test('Test matraToSwar()', () => {
         expect(matraToSwar(matra)).toBeNull();
     });
 });
+
+test('अर्धचंद्रकार विस्तार', () => {
+    expect(isSwar('ऍ')).toBeTruthy();
+    expect(isSwar('ऑ')).toBeTruthy();
+    expect(isSwar('ॲ')).toBeTruthy();
+});
+
+test('अर्धचंद्रकार स्वरों की मत्राएँ', () => {
+    expect(matraToSwar('ॅ')).toBe('ऍ');
+    expect(matraToSwar('ॉ')).toBe('ऑ');
+})
