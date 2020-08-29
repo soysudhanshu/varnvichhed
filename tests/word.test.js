@@ -1,6 +1,6 @@
 const { viched } = require("../src/varnviched");
 
-const {MATRAHIN_SHABD} = require('./data/मात्राहीन-शब्द.js');
+const { MATRAHIN_SHABD } = require('./data/मात्राहीन-शब्द.js');
 const { MATRAO_WALE_SHABD } = require("./data/मात्रायुक्त-शब्द.js");
 
 test('Vichhed words without matra', () => {
@@ -9,7 +9,7 @@ test('Vichhed words without matra', () => {
     });
 });
 
-test('Vichhed words with matra', ()=> {
+test('Vichhed words with matra', () => {
     MATRAO_WALE_SHABD.forEach(shabd => {
         expect(viched(shabd.shabd)).toStrictEqual(shabd.vichhed);
     })
@@ -27,7 +27,7 @@ test('Nukta words', () => {
         'इज़्ज़त': ['इ', 'ज़्', 'ज़्', 'अ', 'त्', 'अ'],
         'आरूढ़': ['आ', 'र्', 'ऊ', 'ढ़्', 'अ'],
         'ज़ख्मी': ['ज़्', 'अ', 'ख्', 'म्', 'ई'],
-        'दफ़्तर': ['द्','अ','फ़्','त्','अ','र्','अ'],
+        'दफ़्तर': ['द्', 'अ', 'फ़्', 'त्', 'अ', 'र्', 'अ'],
         'दृढ़ता': ['द्', 'ऋ', 'ढ़्', 'अ', 'त्', 'आ'],
     }
 
@@ -65,4 +65,20 @@ test('अनुनासिक', () => {
         const vichhed = words[word];
         expect(viched(word)).toStrictEqual(vichhed);
     }
-})
+});
+
+test('अर्धचंद्रकार युक्त शब्द', () => {
+    const shabds = {
+        'ऑ': ['ऑ'],
+        'ऍ': ['ऍ'],
+        'ॲ': ['ॲ'],
+        'हॉट': ['ह्', 'ऑ', 'ट्', 'अ'],
+        'बॅक': ['ब्', 'ऍ', 'क्', 'अ'],
+        'डॉक्टर': ['ड्', 'ऑ', 'क्', 'ट्', 'अ', 'र्', 'अ']
+    };
+
+    for (const shabd in shabds) {
+        const vichhed = shabds[shabd];
+        expect(viched(shabd)).toStrictEqual(vichhed);
+    }
+});
