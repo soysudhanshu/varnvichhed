@@ -82,3 +82,23 @@ test('अर्धचंद्रकार युक्त शब्द', () => 
         expect(viched(shabd)).toStrictEqual(vichhed);
     }
 });
+
+test('विसर्ग युक्त शब्द', () => {
+    expect(viched('अः')).toStrictEqual(['अः']);
+    expect(viched('आः')).toStrictEqual(['आः']);
+    expect(viched('इः')).toStrictEqual(['इः']);
+    expect(viched('ईः')).toStrictEqual(['ईः']);
+    expect(viched('उः')).toStrictEqual(['उः']);
+    expect(viched('ऊः')).toStrictEqual(['ऊः']);
+
+    expect(viched('भोः')).toStrictEqual(['भ्', 'ओः']);
+    expect(viched('केशवः')).toStrictEqual(['क्', 'ए', 'श्', 'अ', 'व्', 'अः']);
+    expect(viched('बालाः')).toStrictEqual(['ब्', 'आ', 'ल्', 'आः']);
+    expect(viched('मतिः')).toStrictEqual(['म्', 'अ', 'त्', 'इः']);
+    expect(viched('चक्षुः')).toStrictEqual(['च्', 'अ', 'क्', 'ष्', 'उः']);
+    expect(viched('देवैः')).toStrictEqual(['द्', 'ए', 'व्', 'ऐः']);
+    expect(viched('भूमेः')).toStrictEqual(['भ्', 'ऊ', 'म्', 'एः']);
+    expect(viched('दुःख')).toStrictEqual(['द्', 'उः', 'ख्', 'अ']);
+    expect(viched('सःअस्ति')).toStrictEqual(['स्', 'अः', 'अ', 'स्', 'त्', 'इ']);
+    expect(viched('पुत्रःगतः')).toStrictEqual(['प्', 'उ', 'त्', 'र्', 'अः', 'ग्', 'अ', 'त्', 'अः'])
+})
