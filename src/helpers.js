@@ -14,6 +14,14 @@ const addAnunasik = char => {
     return char + 'ँ';
 }
 
+const isVisarg = char => {
+    return char === 'ः'
+}
+
+const addVisarg = char => {
+    return char + 'ः';
+}
+
 /**
  * Normalizes a devanagari string.
  * 
@@ -60,3 +68,5 @@ module.exports.isHalant = isHalant;
 module.exports.devanagariNormalize = devanagariNormalize;
 module.exports.isAnunasik = isAnunasik;
 module.exports.addAnunasik = addAnunasik;
+module.exports.isVisarg = isVisarg;
+module.exports.addVisarg = addVisarg;
