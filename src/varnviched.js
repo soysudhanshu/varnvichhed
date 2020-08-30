@@ -1,6 +1,6 @@
 const { isSwar, isMatra, matraToSwar } = require('./swar.js');
 const { isVayanjan } = require('./vayanjan.js');
-const { addHalant, isHalant, devanagariNormalize, isAnunasik, addAnunasik } = require('./helpers.js');
+const { addHalant, isHalant, devanagariNormalize, isAnunasik, addAnunasik, isVisarg, addVisarg } = require('./helpers.js');
 
 const viched = sabdh => {
     sabdh = sabdh.trim();
@@ -23,7 +23,8 @@ const viched = sabdh => {
             isVayanjan(char) &&
             (
                 isVayanjan(nextChar) || isSwar(nextChar) || 
-                isAnunasik(nextChar) || nextChar === ''
+                isAnunasik(nextChar) || isVisarg(nextChar) ||
+                nextChar === ''
             )
         ) {
             varns.push(addHalant(char));
@@ -49,6 +50,20 @@ const viched = sabdh => {
             const lastVichhedVarn = vichhed[vichhed.length - 1];
             if(isSwar(lastVichhedVarn)){
                 vichhed.push(addAnunasik(vichhed.pop()));
+            }
+        }
+
+        /**
+         * इंटर्नेट पर ॐ (\u0950) के स्थान पर ऊँः (\u090A\u0901\u0903)
+         * का प्रयोग भी किया जाता है। 
+         * 
+         * लेकिन व्याकरण के अनुसार अमनिया होने के कारण इसका वर्ण विच्छेद नहीं
+         * किया जाएगा। 
+         **/
+        if(isVisarg(char)){
+            const lastVichhedVarn = vichhed[vichhed.length - 1];
+            if(isSwar(lastVichhedVarn)){
+                vichhed.push(addVisarg(vichhed.pop()));
             }
         }
 
