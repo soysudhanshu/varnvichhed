@@ -31,6 +31,96 @@ const addAnuswar = char => {
 }
 
 /**
+ * अनुस्वार को पंचम वर्ण में बदले।
+ * 
+ * `बदलने के नियम।`
+ * 1. अगर वर्ण पर कोई मात्रा लगी हो 
+ * जो शिरोरेखा से ऊपर जाती हैं तो अनुस्वार का 
+ * परिवर्तन ना करें। क्योंकि वो अनुनासिक को भी
+ * हो सकता हैं।
+ * 
+ * 2. अगर अनुस्वार के बाद `य, र, ल, व,
+ * श, ष, स, ह` में से कोई भी आए तो 
+ * अनुस्वार को पंचम वर्ण में नहीं बदला जा सकता।  
+ * @param {string} shabd 
+ */
+const anuswarSeVarn = shabd => {
+    shabd = devanagariNormalize(shabd);
+    const varns = [...shabd];
+
+    const ushmAndAntasthViyanjan = [
+        'य', 'र', 'ल', 'व',
+        'श', 'ष', 'स', 'ह'
+    ];
+
+    /**
+     * हम पंचम वर्णो को शामिल नहीं करेंगे क्योंकि
+     * उनसे पहले अनुस्वार का प्रयोग नहीं किया जा 
+     * सकता।
+     */
+    const vargs = {
+        'क': /[\u0915-\u0918]/,
+        'च': /[\u091A-\u091D]/,
+        'ट': /[\u091F-\u0922]/,
+        'त': /[\u0924-\u0928]/,
+        'प': /[\u092A-\u092D]/
+    };
+
+    const शिरो_रेखा_के_ऊपर_की_मात्राएँ = [
+        'ि', 'ी', 'े', 'ै', 'ो', 'ौ'
+    ]
+
+    const शिरो_रेखा_के_ऊपर_वाले_स्वर = [
+        'ई', 'ऐ', 'ओ', 'औ'
+    ]
+
+    const doNotConvert = [
+        ...शिरो_रेखा_के_ऊपर_की_मात्राएँ,
+        ...शिरो_रेखा_के_ऊपर_वाले_स्वर
+    ];
+
+    let index = 0;
+    let newWord = '';
+
+    for (const char of varns) {
+        const nextChar = varns[index + 1] ?? '';
+        const prevChar = varns[index - 1] ?? '';
+
+
+        let output = '';
+        if (isAnuswar(char)) {
+            /**
+             * अगर अनुस्वार के आगे अंतस्थ या ऊष्म व्यंजन आए 
+             * तो अनुस्वार का प्रयोग नहीं होगा।
+             */
+
+            if (ushmAndAntasthViyanjan.includes(nextChar) || doNotConvert.includes(prevChar)) {
+                output += 'ं';
+            } else if (vargs.क.test(nextChar)) {
+                output += 'ङ्';
+            } else if (vargs.च.test(nextChar)) {
+                output += 'ञ्';
+            } else if (vargs.ट.test(nextChar)) {
+                output += 'ण्';
+            } else if (vargs.त.test(nextChar)) {
+                output += 'न्';
+            } else if (vargs.प.test(nextChar)) {
+                output += 'म्';
+            }else{
+                output += 'ं';
+            }
+
+        } else {
+            output += char;
+        }
+        newWord += output;
+        ++index;
+    }
+
+    return newWord;
+}
+
+/**
  * Normalizes a devanagari string.
  * 
  * @param {string} string 
@@ -78,3 +168,4 @@ module.exports.isAnunasik = isAnunasik;
 module.exports.addAnunasik = addAnunasik;
 module.exports.isVisarg = isVisarg;
 module.exports.addVisarg = addVisarg;
+module.exports.anuswarSeVarn = anuswarSeVarn;
