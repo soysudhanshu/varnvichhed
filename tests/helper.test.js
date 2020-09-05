@@ -1,4 +1,4 @@
-const { devanagariNormalize } = require("../src/helpers");
+const { devanagariNormalize, anuswarSeVarn } = require("../src/helpers");
 
 test('Test devangariNormalize()', () => {
     expect(devanagariNormalize('')).toBe('');
@@ -28,4 +28,28 @@ test('Test devangariNormalize()', () => {
 
     expect(devanagariNormalize('इज़्ज़त')).toBe('इज़्ज़त');
     expect(devanagariNormalize('दफ़्तर')).toBe('दफ़्तर');
+});
+
+test('अनुस्वार से व्यंजन', () => {
+    expect(anuswarSeVarn('गंगा')).toBe('गङ्गा');
+    expect(anuswarSeVarn('चंचल')).toBe('चञ्चल');
+    expect(anuswarSeVarn('झंडा')).toBe('झण्डा');
+    expect(anuswarSeVarn('दंत')).toBe('दन्त');
+    expect(anuswarSeVarn('मंत्रालय')).toBe('मन्त्रालय')
+    expect(anuswarSeVarn('संबंध')).toBe('सम्बन्ध');
+    expect(anuswarSeVarn('संयुक्त')).toBe('संयुक्त');
+    expect(anuswarSeVarn('संदिग्ध')).toBe('सन्दिग्ध');
+
+    expect(anuswarSeVarn('एवं')).toBe('एवं');
+
+    /**
+     * शिरोरेखा के ऊपर मात्रा हो तो ना बदले।
+     */
+    expect(anuswarSeVarn('हिंदुस्तान')).toBe('हिंदुस्तान');
+    expect(anuswarSeVarn('ज़मींदोज़ों')).toBe('ज़मींदोज़ों');
+    expect(anuswarSeVarn('अकेंद्रत')).toBe('अकेंद्रत');
+    expect(anuswarSeVarn('बैंकिंग')).toBe('बैंकिंग');
+    expect(anuswarSeVarn('सौंदर्य')).toBe('सौंदर्य');
+    expect(anuswarSeVarn('अँतड़ियों')).toBe('अँतड़ियों');
+    expect(anuswarSeVarn('ओरंजेब')).toBe('ओरञ्जेब');
 });
