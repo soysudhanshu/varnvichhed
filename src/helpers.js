@@ -22,6 +22,14 @@ const addVisarg = char => {
     return char + 'ः';
 }
 
+const isAnuswar = char => {
+    return char === 'ं';
+}
+
+const addAnuswar = char => {
+    return char + 'ं';
+}
+
 /**
  * Normalizes a devanagari string.
  * 
