@@ -169,3 +169,5 @@ module.exports.addAnunasik = addAnunasik;
 module.exports.isVisarg = isVisarg;
 module.exports.addVisarg = addVisarg;
 module.exports.anuswarSeVarn = anuswarSeVarn;
+module.exports.isAnuswar = isAnuswar;
+module.exports.addAnuswar = addAnuswar;
