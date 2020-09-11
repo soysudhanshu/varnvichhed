@@ -1,11 +1,12 @@
 const { isSwar, isMatra, matraToSwar } = require('./swar.js');
 const { isVayanjan } = require('./vayanjan.js');
-const { addHalant, isHalant, devanagariNormalize, isAnunasik, addAnunasik, isVisarg, addVisarg } = require('./helpers.js');
+const { addHalant, isHalant, devanagariNormalize, isAnunasik, addAnunasik, isVisarg, addVisarg, anuswarSeVarn, isAnuswar, addAnuswar } = require('./helpers.js');
 
 const viched = sabdh => {
     sabdh = sabdh.trim();
     sabdh = devanagariNormalize(sabdh);
-    
+    sabdh = anuswarSeVarn(sabdh);
+
     const vichhed = [];
 
     let index = 0;
@@ -22,9 +23,9 @@ const viched = sabdh => {
         if (
             isVayanjan(char) &&
             (
-                isVayanjan(nextChar) || isSwar(nextChar) || 
+                isVayanjan(nextChar) || isSwar(nextChar) ||
                 isAnunasik(nextChar) || isVisarg(nextChar) ||
-                nextChar === ''
+                isAnuswar(nextChar)  || nextChar === ''
             )
         ) {
             varns.push(addHalant(char));
@@ -50,6 +51,24 @@ const viched = sabdh => {
             const lastVichhedVarn = vichhed[vichhed.length - 1];
             if(isSwar(lastVichhedVarn)){
                 vichhed.push(addAnunasik(vichhed.pop()));
+            }
+        }
+
+        if (isAnuswar(char)) {
+            const lastVichhedVarn = vichhed[vichhed.length - 1];
+
+            if (isSwar(lastVichhedVarn)) {
+                const lastSwar = vichhed.pop();
+                /**
+                 * शब्द के अंत में अगर ए या इ की मात्रा पर अनुस्वार लगा हो तो
+                 * उसे अनुनासिक में बदले।
+                 */
+                if (['ए', 'इ'].includes(lastSwar) && nextChar === '') {
+                    vichhed.push(addAnunasik(lastSwar));
+                } else {
+                    vichhed.push(addAnuswar(lastSwar));
+                }
+
             }
         }
 
