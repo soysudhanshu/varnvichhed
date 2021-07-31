@@ -1,4 +1,4 @@
-const { isSwar, isMatra, matraToSwar } = require('../swar.js');
+const { isSwar, isMatra, matraToSwar, SWARS } = require('../swar.js');
 const { isVayanjan } = require('../vayanjan.js');
 const { addHalant, isHalant, devanagariNormalize, isAnunasik, addAnunasik, isVisarg, addVisarg, anuswarSeVarn, isAnuswar, addAnuswar } = require('../helpers.js');
 
@@ -23,30 +23,31 @@ class Vichchhed {
                 varns.push(char);
             }
 
-            if (
-                isVayanjan(char) &&
-                (
-                    isVayanjan(nextChar) || isSwar(nextChar) ||
-                    isAnunasik(nextChar) || isVisarg(nextChar) ||
-                    isAnuswar(nextChar) || nextChar === ''
-                )
-            ) {
+            if (isVayanjan(char)) {
                 varns.push(addHalant(char));
+            }
+
+            if (isVayanjan(char) && isSwar(nextChar)) {
                 varns.push('अ');
             }
 
-            /**
-             * For sanyunkt vayanjan
-             */
-            if (isVayanjan(char) && isHalant(nextChar)) {
-                varns.push(addHalant(char));
+            if (isVayanjan(char) && isVayanjan(nextChar)) {
+                varns.push('अ');
             }
 
-            /**
-             * व्यंजन पर लगी मात्राओं का विच्छेद
-             */
+            if (isVayanjan(char) && isAnunasik(nextChar)) {
+                varns.push(addAnunasik('अ'));
+            }
+
+            if (isVayanjan(char) && isVisarg(nextChar)) {
+                varns.push(addVisarg('अ'));
+            }
+
+            if (isVayanjan(char) && nextChar === '') {
+                varns.push('अ');
+            }
+
             if (isVayanjan(char) && isMatra(nextChar)) {
-                varns.push(addHalant(char));
                 varns.push(matraToSwar(nextChar));
             }
 
