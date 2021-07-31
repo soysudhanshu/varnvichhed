@@ -8,10 +8,7 @@ class Vichchhed {
      * @param {string} word String in Devanagari script
      */
     static vichchhed(word) {
-        let sabdh = word;
-        sabdh = sabdh.trim();
-        sabdh = devanagariNormalize(sabdh);
-        sabdh = anuswarSeVarn(sabdh);
+        const sabdh = Vichchhed.#normalize(word);
 
         const vichhed = [];
 
@@ -97,6 +94,14 @@ class Vichchhed {
         }
 
         return vichhed;
+    }
+
+    static #normalize(word) {
+        word = word.trim();
+        word = devanagariNormalize(word);
+        word = anuswarSeVarn(word);
+
+        return word;
     }
 }
 
