@@ -40,12 +40,12 @@ test('अनुस्वार से व्यंजन', () => {
     expect(anuswarSeVarn('संयुक्त')).toBe('संयुक्त');
     expect(anuswarSeVarn('संदिग्ध')).toBe('सन्दिग्ध');
 
-    expect(anuswarSeVarn('एवं')).toBe('एवं');
+    expect(anuswarSeVarn('एवं')).toBe('एवम्');
 
     /**
      * शिरोरेखा के ऊपर मात्रा हो तो ना बदले।
      */
-    expect(anuswarSeVarn('हिंदुस्तान')).toBe('हिंदुस्तान');
+    expect(anuswarSeVarn('हिंदुस्तान')).toBe('हिन्दुस्तान');
     expect(anuswarSeVarn('ज़मींदोज़ों')).toBe('ज़मींदोज़ों');
     expect(anuswarSeVarn('अकेंद्रत')).toBe('अकेंद्रत');
     expect(anuswarSeVarn('बैंकिंग')).toBe('बैंकिंग');

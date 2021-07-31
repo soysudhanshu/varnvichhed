@@ -117,6 +117,14 @@ const anuswarSeVarn = shabd => {
         ++index;
     }
 
+    /**
+     * Common edge cases
+     */
+    newWord = newWord.replace('हिंद', 'हिन्द');
+    newWord = newWord.replace('बिंद', 'बिन्द');
+    newWord = newWord.replace('लिंग', 'लिङ्ग');
+    newWord = newWord.replace('एवं', 'एवम्');
+
     return newWord;
 }
 
