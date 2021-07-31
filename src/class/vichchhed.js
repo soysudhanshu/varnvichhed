@@ -24,31 +24,8 @@ class Vichchhed {
             }
 
             if (isVayanjan(char)) {
-                varns.push(addHalant(char));
-            }
-
-            if (isVayanjan(char) && isSwar(nextChar)) {
-                varns.push('अ');
-            }
-
-            if (isVayanjan(char) && isVayanjan(nextChar)) {
-                varns.push('अ');
-            }
-
-            if (isVayanjan(char) && isAnunasik(nextChar)) {
-                varns.push(addAnunasik('अ'));
-            }
-
-            if (isVayanjan(char) && isVisarg(nextChar)) {
-                varns.push(addVisarg('अ'));
-            }
-
-            if (isVayanjan(char) && nextChar === '') {
-                varns.push('अ');
-            }
-
-            if (isVayanjan(char) && isMatra(nextChar)) {
-                varns.push(matraToSwar(nextChar));
+                const vichchhed = Vichchhed.#viyanjanVichchhed(char, nextChar);
+                varns.push(...vichchhed);
             }
 
             if (isAnunasik(char)) {
@@ -103,6 +80,43 @@ class Vichchhed {
         word = anuswarSeVarn(word);
 
         return word;
+    }
+
+    /**
+     * @param {string} currentChar
+     * @param {string} nextChar
+     */
+    static #viyanjanVichchhed(char, nextChar) {
+        const vichchhed = [];
+
+        vichchhed.push(addHalant(char));
+
+        if (isSwar(nextChar)) {
+            vichchhed.push('अ');
+        }
+
+        if (isVayanjan(nextChar)) {
+            vichchhed.push('अ');
+        }
+
+        if (isAnunasik(nextChar)) {
+            vichchhed.push(addAnunasik('अ'));
+        }
+
+        if (isVisarg(nextChar)) {
+            vichchhed.push(addVisarg('अ'));
+        }
+
+        if (nextChar === '') {
+            vichchhed.push('अ');
+        }
+
+        if (isMatra(nextChar)) {
+            vichchhed.push(matraToSwar(nextChar));
+        }
+
+
+        return vichchhed;
     }
 }
 
