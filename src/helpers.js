@@ -32,17 +32,17 @@ const addAnuswar = char => {
 
 /**
  * अनुस्वार को पंचम वर्ण में बदले।
- * 
+ *
  * `बदलने के नियम।`
- * 1. अगर वर्ण पर कोई मात्रा लगी हो 
- * जो शिरोरेखा से ऊपर जाती हैं तो अनुस्वार का 
+ * 1. अगर वर्ण पर कोई मात्रा लगी हो
+ * जो शिरोरेखा से ऊपर जाती हैं तो अनुस्वार का
  * परिवर्तन ना करें। क्योंकि वो अनुनासिक को भी
  * हो सकता हैं।
- * 
+ *
  * 2. अगर अनुस्वार के बाद `य, र, ल, व,
- * श, ष, स, ह` में से कोई भी आए तो 
- * अनुस्वार को पंचम वर्ण में नहीं बदला जा सकता।  
- * @param {string} shabd 
+ * श, ष, स, ह` में से कोई भी आए तो
+ * अनुस्वार को पंचम वर्ण में नहीं बदला जा सकता।
+ * @param {string} shabd
  */
 const anuswarSeVarn = shabd => {
     shabd = devanagariNormalize(shabd);
@@ -55,7 +55,7 @@ const anuswarSeVarn = shabd => {
 
     /**
      * हम पंचम वर्णो को शामिल नहीं करेंगे क्योंकि
-     * उनसे पहले अनुस्वार का प्रयोग नहीं किया जा 
+     * उनसे पहले अनुस्वार का प्रयोग नहीं किया जा
      * सकता।
      */
     const vargs = {
@@ -90,7 +90,7 @@ const anuswarSeVarn = shabd => {
         let output = '';
         if (isAnuswar(char)) {
             /**
-             * अगर अनुस्वार के आगे अंतस्थ या ऊष्म व्यंजन आए 
+             * अगर अनुस्वार के आगे अंतस्थ या ऊष्म व्यंजन आए
              * तो अनुस्वार का प्रयोग नहीं होगा।
              */
 
@@ -106,7 +106,7 @@ const anuswarSeVarn = shabd => {
                 output += 'न्';
             } else if (vargs.प.test(nextChar)) {
                 output += 'म्';
-            }else{
+            } else {
                 output += 'ं';
             }
 
@@ -117,22 +117,30 @@ const anuswarSeVarn = shabd => {
         ++index;
     }
 
+    /**
+     * Common edge cases
+     */
+    newWord = newWord.replace('हिंद', 'हिन्द');
+    newWord = newWord.replace('बिंद', 'बिन्द');
+    newWord = newWord.replace('लिंग', 'लिङ्ग');
+    newWord = newWord.replace('एवं', 'एवम्');
+
     return newWord;
 }
 
 /**
  * Normalizes a devanagari string.
- * 
- * @param {string} string 
+ *
+ * @param {string} string
  * @returns {string}
  */
 const devanagariNormalize = string => {
-    if(!string){
+    if (!string) {
         return '';
     }
-    
+
     string = String(string);
-    
+
     const normalizationChart = {
         '\u0915\u093C': '\u0958',
         '\u0916\u093C': '\u0959',
