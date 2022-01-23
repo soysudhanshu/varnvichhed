@@ -18,6 +18,8 @@ class Vichchhed {
 
             const nextChar = sabdh[index + 1] ?? '';
             const previousChar = sabdh[index - 1] ?? '';
+            const lastVichhedVarn = vichhed[vichhed.length - 1];
+
 
             if (isSwar(char)) {
                 varns.push(char);
@@ -28,28 +30,20 @@ class Vichchhed {
                 varns.push(...vichchhed);
             }
 
-            if (isAnunasik(char)) {
-                const lastVichhedVarn = vichhed[vichhed.length - 1];
-                if (isSwar(lastVichhedVarn)) {
-                    vichhed.push(addAnunasik(vichhed.pop()));
-                }
+            if (isAnunasik(char) && isSwar(lastVichhedVarn)) {
+                vichhed.push(addAnunasik(vichhed.pop()));
             }
 
-            if (isAnuswar(char)) {
-                const lastVichhedVarn = vichhed[vichhed.length - 1];
-
-                if (isSwar(lastVichhedVarn)) {
-                    const lastSwar = vichhed.pop();
-                    /**
-                     * शब्द के अंत में अगर ए या इ की मात्रा पर अनुस्वार लगा हो तो
-                     * उसे अनुनासिक में बदले।
-                     */
-                    if (['ए', 'इ'].includes(lastSwar) && nextChar === '') {
-                        vichhed.push(addAnunasik(lastSwar));
-                    } else {
-                        vichhed.push(addAnuswar(lastSwar));
-                    }
-
+            if (isAnuswar(char) && isSwar(lastVichhedVarn)) {
+                const lastSwar = vichhed.pop();
+                /**
+                 * शब्द के अंत में अगर ए या इ की मात्रा पर अनुस्वार लगा हो तो
+                 * उसे अनुनासिक में बदले।
+                 */
+                if (['ए', 'इ'].includes(lastSwar) && nextChar === '') {
+                    vichhed.push(addAnunasik(lastSwar));
+                } else {
+                    vichhed.push(addAnuswar(lastSwar));
                 }
             }
 
@@ -60,11 +54,8 @@ class Vichchhed {
              * लेकिन व्याकरण के अनुसार अमनिया होने के कारण इसका वर्ण विच्छेद नहीं
              * किया जाएगा।
              **/
-            if (isVisarg(char)) {
-                const lastVichhedVarn = vichhed[vichhed.length - 1];
-                if (isSwar(lastVichhedVarn)) {
-                    vichhed.push(addVisarg(vichhed.pop()));
-                }
+            if (isVisarg(char) && isSwar(lastVichhedVarn)) {
+                vichhed.push(addVisarg(vichhed.pop()));
             }
 
             vichhed.push(...varns);
