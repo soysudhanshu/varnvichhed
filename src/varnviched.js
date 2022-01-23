@@ -1,4 +1,4 @@
-const { Vichchhed } = require('./class/vichchhed.js');
+const { Vichchhed } = require('./vichchhed');
 
 const viched = sabdh => {
     return Vichchhed.vichchhed(sabdh);

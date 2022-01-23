@@ -1,6 +1,6 @@
-const { isSwar, isMatra, matraToSwar, SWARS } = require('../swar.js');
-const { isVayanjan } = require('../vayanjan.js');
-const { addHalant, isHalant, devanagariNormalize, isAnunasik, addAnunasik, isVisarg, addVisarg, anuswarSeVarn, isAnuswar, addAnuswar } = require('../helpers.js');
+const { isSwar, isMatra, matraToSwar, SWARS } = require('./swar');
+const { isVayanjan } = require('./vayanjan');
+const { addHalant, isHalant, devanagariNormalize, isAnunasik, addAnunasik, isVisarg, addVisarg, anuswarSeVarn, isAnuswar, addAnuswar } = require('./helpers');
 
 class Vichchhed {
     /**
